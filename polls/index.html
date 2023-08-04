@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+    /* Center the heading */
+    h1.text-center {
+        text-align: center;
+        margin-top: 30px;
+    }
+
+    /* Add some margin below the cards */
+    .card {
+        margin-bottom: 20px;
+        border: none;
+        box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Style the card body */
+    .card-body {
+        padding: 20px;
+    }
+
+    /* Style the "Vote Now" and "Results" buttons */
+    .btn-primary,
+    .btn-secondary {
+        font-size: 14px;
+        padding: 8px 16px;
+        border-radius: 30px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        width: 120px;
+        margin-right: 10px;
+    }
+
+    .btn-primary {
+        background-color: #1E90FF; /* Dodger Blue color for "Vote Now" button */
+    }
+
+    .btn-secondary {
+        background-color: #808080; /* Grey color for "Results" button */
+    }
+
+    .btn-primary:hover,
+    .btn-secondary:hover {
+        opacity: 0.9; /* Reduce opacity on hover */
+    }
+
+    /* Style the lead text */
+    p.lead {
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    /* Add background color to the odd cards */
+    .card:nth-child(odd) {
+        background-color: #f7f7f7;
+    }
+</style>
+
+<h1 class="text-center mb-5">Vote Questions</h1>
+{% if latest_question_list %}
+{% for question in latest_question_list %}
+<div class="card mb-3">
+    <div class="card-body">
+        <p class="lead">{{ question.question_text }}</p>
+        <div class="text-center mt-3">
+            <a href="{% url 'polls:detail' question.id %}" class="btn btn-primary">Vote Now</a>
+            <a href="{% url 'polls:results' question.id %}" class="btn btn-secondary">Results</a>
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% else %}
+<p class="text-center mt-5">No polls available</p>
+{% endif %}
+{% endblock %}

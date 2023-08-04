@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5">
+    <a class="btn btn-secondary mb-3" href="{% url 'polls:index' %}">Back To Vote</a>
+    <div class="card">
+        <div class="card-body">
+            <h1 class="text-center mb-4">{{ question.question_text }}</h1>
+
+            {% if error_message %}
+            <div class="alert alert-danger">
+                <strong>{{ error_message }}</strong>
+            </div>
+            {% endif %}
+
+            <form action="{% url 'polls:vote' question.id %}" method="post">
+                {% csrf_token %}
+                {% for choice in question.choice_set.all %}
+                <div class="custom-control custom-radio mb-3">
+                    <input type="radio" name="choice" class="custom-control-input" id="choice{{ forloop.counter }}"
+                        value="{{ choice.id }}" />
+                    <label class="custom-control-label" for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label>
+                </div>
+                {% endfor %}
+                <button type="submit" class="btn btn-success btn-lg btn-block">Vote</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Center the "Back To Polls" button */
+    .btn-secondary {
+        display: block;
+        margin: 0 auto;
+        text-align: center;
+        width: 180px;
+    }
+
+    /* Style the card */
+    .card {
+        border: none;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Style the card body */
+    .card-body {
+        padding: 30px;
+    }
+
+    /* Style the radio buttons */
+    .custom-radio .custom-control-label::before {
+        border: 2px solid #007bff; /* Blue border for radio buttons */
+        border-radius: 50%;
+        margin-right: 10px;
+    }
+
+    .custom-radio .custom-control-input:checked ~ .custom-control-label::before {
+        background-color: #007bff; /* Blue fill for selected radio buttons */
+        border-color: #007bff;
+    }
+
+    /* Style the vote button */
+    .btn-success {
+        margin-top: 20px;
+        font-size: 20px;
+        border-radius: 30px;
+    }
+
+    .btn-success:hover {
+        opacity: 0.8; /* Reduce opacity on hover */
+    }
+</style>
+{% endblock %}
