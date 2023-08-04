@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+    /* Center the card vertically and horizontally */
+    .card {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        max-width: 400px;
+        width: 100%;
+        border: none;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Style the card header */
+    .card .card-body h1 {
+        font-size: 36px;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+
+    /* Style the card text */
+    .card .card-body p {
+        font-size: 18px;
+    }
+
+    /* Style the "Enter the Voting Booth" button */
+    .card .card-body .btn-success {
+        font-size: 20px;
+        padding: 12px 24px;
+        border-radius: 30px;
+    }
+
+    /* Add padding to the footer */
+    footer {
+        padding: 8px 0;
+    }
+
+    /* Style the footer text */
+    footer p {
+        font-size: 14px;
+        margin: 0;
+    }
+
+    
+</style>
+
+<div class="card text-center bg-primary text-white">
+    <div class="card-body">
+        <h1>Welcome to Our Voting Platform</h1>
+        <p>Empowering you to make your voice heard.</p>
+        <a class="btn btn-success" href="{% url 'polls:index' %}">
+            Enter the Voting Booth
+        </a>
+    </div>
+</div>
+<footer class="fixed-bottom text-white bg-dark py-2">
+    <p align="center">Group G - Python Project.</p>
+</footer>
+{% endblock %}
